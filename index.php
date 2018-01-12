@@ -10,5 +10,5 @@
 require_once('settings.php');
 
 $handler = new RequestHandler(RequestHandler::INDEX, $_GET, $_POST);
-$handler->start();
+$handler->init();
 ?>

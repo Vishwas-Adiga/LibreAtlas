@@ -30,18 +30,25 @@ $host = 'localhost';
 $encoding = 'utf8';
 
 /* Constants & Globals Declaration */
-$GLOBALS['appname'] = $appname;
+// Constants for internal use ONLY
+$GLOBALS['appname']      = $appname;
 $GLOBALS['maps_api_key'] = $maps_api_key;
-$GLOBALS['root'] = $_SERVER['DOCUMENT_ROOT'] . '/' . $appFolder; // ex: C:/wamp64/www/LibreAtlas
-$GLOBALS['core'] = $GLOBALS['root'] . '/core'; // ex: C:/wamp64/www/LibreAtlas/core
-$GLOBALS['classes'] = $GLOBALS['core'] . '/classes'; // ex: C:/wamp64/www/LibreAtlas/core/classes
-$GLOBALS['contents'] = $GLOBALS['core'] . '/contents'; // ex: C:/wamp64/www/LibreAtlas/core/contents
-$GLOBALS['sources'] = $GLOBALS['core'] . '/sources'; // ex: C:/wamp64/www/LibreAtlas/core/sources
+$GLOBALS['root']         = $_SERVER['DOCUMENT_ROOT'] . '/' . $appFolder; // ex: C:/wamp64/www/LibreAtlas
+$GLOBALS['core']         = $GLOBALS['root'] . '/core'; // ex: C:/wamp64/www/LibreAtlas/core
+$GLOBALS['classes']      = $GLOBALS['core'] . '/classes'; // ex: C:/wamp64/www/LibreAtlas/core/classes
+$GLOBALS['contents']     = $GLOBALS['core'] . '/contents'; // ex: C:/wamp64/www/LibreAtlas/core/contents
+$GLOBALS['sources']      = $GLOBALS['core'] . '/sources'; // ex: C:/wamp64/www/LibreAtlas/core/sources
+// These client_ constants are used in client-sided assets like scripts/styles. We cannot use the above. All paths are relative to index.php.
+// If a / is added (like: /contents) the the paths are relative to root folder instead index.php
+$GLOBALS['client_core']     = 'core'; // ex: atlas.librehealth.io/core
+$GLOBALS['client_contents'] = $GLOBALS['client_core'] . '/' . 'contents'; // ex: atlas.librehealth.io/core/contents
+$GLOBALS['client_sources']  = $GLOBALS['client_core'] . '/' . 'sources'; // ex: atlas.librehealth.io/core/sources
 
 /* Loading all libraries needed for the program to run */
 require_once($GLOBALS['classes'] . '/meekrodb.2.3.class.php');
 require_once($GLOBALS['classes'] . '/RequestHandler.class.php');
 require_once($GLOBALS['classes'] . '/Wizard.class.php');
+require_once($GLOBALS['classes'] . '/RestApi.class.php');
 
 /* Setting up the Database Handler */
 DB::$user = $username;

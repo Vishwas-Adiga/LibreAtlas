@@ -1,8 +1,7 @@
 <html>
 	<head>
 		<title><?= Wizard::getAppTitle(); ?></title>
-		<?= Wizard::callAssets(array(Wizard::LIBRARY_JQUERY)); ?>
-		<script src="core/contents/map/darkMapStyle.js"></script>
+		<?= Wizard::callAssets(array(Wizard::LIBRARY_JQUERY, Wizard::DARK_MAP_STYLE)); ?>
 		<style>
 			body {
 				margin: 0px;
@@ -43,18 +42,15 @@
 	</head>
 	<body>
 		<div id="container">
-			<div id="dock">
-				
-			</div>
+			<div id="dock"></div>
 			<div id="centerFooter">
 				<div id="footer">
 					<!-- Transparent footer containing LibreHealth's logo -->
-					<img id="footerLogo" src="https://librehealth.io/img/logo.png"/>
+					<img id="footerLogo" src="http://librehealth.io/img/logo.png"/>
 				</div>		
 			</div>	
 			<div id="map"></div>
-
-			
+	
 			<script>
       			function initMap() {
 
@@ -115,7 +111,6 @@
 
 	    			drop();
         		}
-
     		</script>
 
     		<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= Wizard::getMapsAPIKey(); ?>&callback=initMap"></script>

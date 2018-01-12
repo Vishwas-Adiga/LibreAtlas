@@ -25,14 +25,43 @@ class RequestHandler {
 		$this->postData = $postData;
 	}
 
-	// Start >> starts the handler. Identifies the page which is being worked on and executes the required conditionals
-	function start() {
+	// Init >> Initializes the handler. Identifies the page which is being worked on and executes the required conditionals
+	/*
+	 * ?area=map
+	 * 		includes map
+	 * ?area=dashboard
+	 * 		includes dashboard
+	 * ?area=api
+	 *		includes api
+	 * ?area=*
+	 *		includes map
+	 * 
+	 * <default behavior>
+	 * 		includes map
+	 */
+	function init() {
 		switch ($this->handlerPage) {
 			case self::INDEX:
-				include $GLOBALS['contents'] . '/map/map.php';
+				if (isset($this->getData['area'])) {
+					switch ($this->getData['area']) {
+						case 'map':
+							include $GLOBALS['contents'] . '/map/map.php';
+							break;
+						case 'api':
+							include $GLOBALS['contents'] . '/rest-api/api.php';
+							break;
+						case 'dashboard':
+							break;
+						default:
+							include $GLOBALS['contents'] . '/map/map.php';
+							break;
+					}
+				} else {
+					include $GLOBALS['contents'] . '/map/map.php';
+				}
 				break;
 			default:
-				//include $GLOBALS['contents'] . '/map.php';
+				include $GLOBALS['contents'] . '/map/map.php';
 				break;
 		}
 	}
