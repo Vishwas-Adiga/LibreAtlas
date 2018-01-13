@@ -49,5 +49,15 @@ class Wizard {
 
 		return $returnAssetString;
 	}
+
+	/* Includes map script */
+	public static function callMapScript() {
+		include $GLOBALS['contents'] . '/map/mapScript.php';
+	}
+
+	/* Returns all markers available to be displayed on the map */
+	public static function callMarkersArray() {
+		return "var lol = 1;";
+	}
 }
 ?>

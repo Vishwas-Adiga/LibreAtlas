@@ -66,8 +66,13 @@ class RestApi {
 					}
 					break;
 				case 'removemarker':
-					$this->response(self::STATUS_SUCCESS);
-
+					if ($this->removeMarker()) {
+						$this->response(self::STATUS_SUCCESS);
+						return true;
+					} else {
+						$this->response(self::STATUS_ERROR);
+						return false;
+					}
 					break;
 				default:
 					$this->response(self::STATUS_ERROR);
@@ -77,14 +82,49 @@ class RestApi {
 	}
 
 	/* Add Marker >> adds a marker using POST Data given by user */
+	function addMarker() {
+		$latlng = (!isset($_POST['latlng']) || empty($_POST['latlng']))  ? null : $_POST['latlng'];
+		$facility = (!isset($_POST['facility']) || empty($_POST['facility']))  ? null : $_POST['facility'];
+		$distribution = (!isset($_POST['distribution']) || empty($_POST['distribution']))  ? null : $_POST['distribution'];
+		$event = (!isset($_POST['event']) || empty($_POST['event']))  ? null : $_POST['event'];
+		$numberPatients = (!isset($_POST['number_patients']) || empty($_POST['number_patients']))  ? null : $_POST['number_patients'];
+		$website = (!isset($_POST['website']) || empty($_POST['website']))  ? null : $_POST['website'];
+		$contacts = (!isset($_POST['contacts']) || empty($_POST['contacts']))  ? null : $_POST['contacts'];
+
+		$addQuery = DB::insert('markers', array(
+			'latlng' => $latlng,
+			'facility' => $facility,
+			'distribution' => $distribution,
+			'event' => $event,
+			'number_patients' => $numberPatients,
+			'website' => $website,
+			'contacts' => $contacts
+			));
+
+		return $addQuery;
+	}
+
+	/* Remove Marker >> removes a marker using POST Data given by user */
+	function removeMarker() {
+		// if marker id wasn't given, return false because it's impossible to do anything without an id
+		if (!isset($_POST['marker_id'])) return false;
+
+		$marker_id = $_POST['marker_id'];
+
+		$removeQuery = DB::update('markers', array(
+			'disabled' => 1
+			), 'id=%s', $marker_id);
+
+		return $removeQuery;
+	}
 
 	/* Response >> echoes the JSON response into the page */
 	function response($status=false, $responseArray=null) {
 		$responseArray = array_filter($responseArray);
 		$response = "";
 
-		if ($responseArray == null || empty($responseArray)) $response .= "no array ";
-		if ($responseArray != null && !empty($responseArray)) $response .= "array ";
+		/*if ($responseArray == null || empty($responseArray)) $response .= "no array ";
+		if ($responseArray != null && !empty($responseArray)) $response .= "array ";*/
 		if ($status) $response .= "success";
 		if (!$status) $response .= "error";
 
