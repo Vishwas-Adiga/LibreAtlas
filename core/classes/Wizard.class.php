@@ -57,7 +57,10 @@ class Wizard {
 
 	/* Returns all markers available to be displayed on the map */
 	public static function callMarkersArray() {
-		return "var lol = 1;";
+		return "var markers = [
+			{latlng: {lat: -25.363, lng: 131.044}, id: 152, facility: 'Africa', distribution: 'LibreEHR v2.0.0', event: 'ebola', number_patients: '10', website: 'www.google.com', contacts: 'email@suport.com', last_updated: '2018-01-13 00:19:10'},
+			{latlng: {lat: -20.412, lng: 137.044}, id: 174, facility: 'Australia', distribution: 'Toolkit v3.0.0', event: 'flu', number_patients: '2', website: 'www.flu.com', contacts: 'email@flu.com', last_updated: '2018-01-13 00:20:10'}
+		];";
 	}
 }
 ?>
