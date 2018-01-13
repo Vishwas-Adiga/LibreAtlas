@@ -12,7 +12,8 @@
 
 		var map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 3,
-			center: markers[0]['latlng'],
+			minZoom: 2,
+			center: {lat: 35.5594439, lng: -5.6859816},
 			styles: mapStyle
 		});
 
@@ -55,7 +56,7 @@
 		// this loops through all existing markers and adds them to the map (200ms between each) and creates an info window for it
 		for (i=0; i<markers.length; i++) {
 			console.log(i + " . " + markers.length);
-			setTimeout(addMarker, i * 200, markers[i]);
+			setTimeout(addMarker, i * 350, markers[i]);
 		}
 	}
 </script>
