@@ -51,6 +51,7 @@ class RequestHandler {
 							include $GLOBALS['contents'] . '/rest-api/api.php';
 							break;
 						case 'dashboard':
+							include $GLOBALS['contents'] . '/dashboard/dashboard.php';
 							break;
 						default:
 							include $GLOBALS['contents'] . '/map/map.php';

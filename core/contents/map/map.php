@@ -42,16 +42,15 @@
 	</head>
 	<body>
 		<div id="container">
-			
 			<div id="dock"></div>
 			<div id="centerFooter">
 				<div id="footer">
 					<!-- Transparent footer containing LibreHealth's logo -->
 					<img id="footerLogo" src="http://librehealth.io/img/logo.png"/>
-				</div>		
-			</div>	
+				</div>
+			</div>
 			<div id="map"></div>
-	
+
 			<?= Wizard::callMapScript(); ?>
 
     		<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= Wizard::getMapsAPIKey(); ?>&callback=initMap"></script>

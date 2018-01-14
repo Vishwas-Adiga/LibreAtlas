@@ -65,8 +65,17 @@ class RestApi {
 						return false;
 					}
 					break;
-				case 'removemarker':
-					if ($this->removeMarker()) {
+				case 'disablemarker':
+					if ($this->disableMarker()) {
+						$this->response(self::STATUS_SUCCESS);
+						return true;
+					} else {
+						$this->response(self::STATUS_ERROR);
+						return false;
+					}
+					break;
+				case 'enablemarker':
+					if ($this->enableMarker()) {
 						$this->response(self::STATUS_SUCCESS);
 						return true;
 					} else {
@@ -83,13 +92,13 @@ class RestApi {
 
 	/* Add Marker >> adds a marker using POST Data given by user */
 	function addMarker() {
-		$latlng = (!isset($_POST['latlng']) || empty($_POST['latlng']))  ? null : $_POST['latlng'];
-		$facility = (!isset($_POST['facility']) || empty($_POST['facility']))  ? null : $_POST['facility'];
-		$distribution = (!isset($_POST['distribution']) || empty($_POST['distribution']))  ? null : $_POST['distribution'];
-		$event = (!isset($_POST['event']) || empty($_POST['event']))  ? null : $_POST['event'];
-		$numberPatients = (!isset($_POST['number_patients']) || empty($_POST['number_patients']))  ? null : $_POST['number_patients'];
-		$website = (!isset($_POST['website']) || empty($_POST['website']))  ? null : $_POST['website'];
-		$contacts = (!isset($_POST['contacts']) || empty($_POST['contacts']))  ? null : $_POST['contacts'];
+		$latlng = (!isset($_POST['latlng']) || empty($_POST['latlng']))  ? null : trim($_POST['latlng']);
+		$facility = (!isset($_POST['facility']) || empty($_POST['facility']))  ? null : trim($_POST['facility']);
+		$distribution = (!isset($_POST['distribution']) || empty($_POST['distribution']))  ? null : trim($_POST['distribution']);
+		$event = (!isset($_POST['event']) || empty($_POST['event']))  ? null : trim($_POST['event']);
+		$numberPatients = (!isset($_POST['number_patients']) || empty($_POST['number_patients']))  ? null : trim($_POST['number_patients']);
+		$website = (!isset($_POST['website']) || empty($_POST['website']))  ? null : trim($_POST['website']);
+		$contacts = (!isset($_POST['contacts']) || empty($_POST['contacts']))  ? null : trim($_POST['contacts']);
 
 		$addQuery = DB::insert('markers', array(
 			'latlng' => $latlng,
@@ -104,21 +113,35 @@ class RestApi {
 		return $addQuery;
 	}
 
-	/* Remove Marker >> removes a marker using POST Data given by user */
-	function removeMarker() {
+	/* Disable Marker >> disables a marker using POST Data given by user */
+	function disableMarker() {
 		// if marker id wasn't given, return false because it's impossible to do anything without an id
 		if (!isset($_POST['marker_id'])) return false;
 
 		$marker_id = $_POST['marker_id'];
 
-		$removeQuery = DB::update('markers', array(
+		$disableQuery = DB::update('markers', array(
 			'disabled' => 1
 			), 'id=%s', $marker_id);
 
-		return $removeQuery;
+		return $disableQuery;
 	}
 
-	/* Response >> echoes the JSON response into the page */
+	/* Enable Marker >> enables a disabled marker using POST Data given by user */
+	function enableMarker() {
+		// if marker ID wasn't given, return false because it's impossible to identify it
+		if (!isset($_POST['marker_id'])) return false;
+
+		$marker_id = trim($_POST['marker_id']);
+
+		$enableQuery = DB::update('markers', array(
+			'disabled' => 0
+			), 'id=%s', $marker_id);
+
+		return $enableQuery;
+	}
+
+	/* Response >> echoes the JSON response into the page (WIP) */
 	function response($status=false, $responseArray=null) {
 		$responseArray = array_filter($responseArray);
 		$response = "";
