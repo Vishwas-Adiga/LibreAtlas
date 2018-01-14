@@ -10,6 +10,9 @@
 
 /* Settings >> SETUP */
 
+
+// >>>>>>>>>>>>>>>>>>> CUSTOMIZABLE BELOW!
+
 // Switch on/off ERROR REPORTING (1 = on, 2 = off) (can be overridden by php.ini)
 error_reporting(1);
 
@@ -28,6 +31,9 @@ $password = 'root';
 $databaseName = 'libreatlas';
 $host = 'localhost';
 $encoding = 'utf8';
+
+// >>>>>>>>>>>>>>>>>>> DO NOT CHANGE BELOW!
+
 
 /* Constants & Globals Declaration */
 // Constants for internal use ONLY
