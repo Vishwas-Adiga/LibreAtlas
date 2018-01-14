@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title><?= Wizard::getAppTitle(); ?></title>
+		<title><?= Wizard::getHeadTitle(Wizard::MAP_AREA); ?></title>
 		<?= Wizard::callAssets(array(Wizard::LIBRARY_JQUERY, Wizard::DARK_MAP_STYLE)); ?>
 		<style>
 			body {

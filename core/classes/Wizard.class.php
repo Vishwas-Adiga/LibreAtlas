@@ -14,15 +14,37 @@ class Wizard {
 	/* Started with:
 	 * 1 -> library
 	 * 2 -> any kind of style
+	 * 3 -> app area
 	 * (preferred order: | 28, 29, 210, 211, 212 | so the first digit indicates the kind of inclusion)
 	 */
 
 	const LIBRARY_JQUERY = 10;
 	const DARK_MAP_STYLE = 20;
+	const MAP_AREA       = 30;
+	const DASHBOARD_AREA = 31;
+	const LOGIN_AREA     = 32;
 
 	/* Returns App Title */
 	public static function getAppTitle() {
 		return $GLOBALS['appname'];
+	}
+
+	/* Returns head titles (for the pages) */
+	public static function getHeadTitle($area) {
+		switch ($area) {
+			case self::DASHBOARD_AREA:
+				return $GLOBALS['appname'] . ' Dashboard';
+				break;
+			case self::LOGIN_AREA:
+				return $GLOBALS['appname'] . ' Dashboard Login';
+				break;
+			case self::MAP_AREA:
+				return self::getAppTitle();
+				break;
+			default:
+				return self::getAppTitle();
+				break;
+		}
 	}
 
 	/* Returns Maps API Key */

@@ -11,7 +11,12 @@
 class RequestHandler {
 
 	// Static Constants
-	const INDEX = 0;
+	const INDEX = 0; // where handler is called
+
+	const MAP_AREA = 'map';
+	const DASHBOARD_AREA = 'dashboard';
+	const API_AREA = 'api';
+	const LOGIN_AREA = 'login';
 
 	// Object variables
 	private $postData;
@@ -29,10 +34,16 @@ class RequestHandler {
 	/*
 	 * ?area=map
 	 * 		includes map
+	 *
 	 * ?area=dashboard
-	 * 		includes dashboard
+	 * 		?action=login
+	 *			includes login page for dashboard
+	 *		<default behavior>
+	 *			includes dashboard page
+	 *
 	 * ?area=api
 	 *		includes api
+	 *
 	 * ?area=*
 	 *		includes map
 	 * 
@@ -44,15 +55,30 @@ class RequestHandler {
 			case self::INDEX:
 				if (isset($this->getData['area'])) {
 					switch ($this->getData['area']) {
-						case 'map':
+						case self::MAP_AREA:
 							include $GLOBALS['contents'] . '/map/map.php';
 							break;
-						case 'api':
+
+						case self::API_AREA:
 							include $GLOBALS['contents'] . '/rest-api/api.php';
 							break;
-						case 'dashboard':
-							include $GLOBALS['contents'] . '/dashboard/dashboard.php';
+
+						case self::DASHBOARD_AREA:
+							if (isset($this->getData['action'])) {
+								switch ($this->getData['action']) {
+									case self::LOGIN_AREA:
+										include $GLOBALS['contents'] . '/dashboard/login.php';
+										break;
+
+									default:
+										include $GLOBALS['contents'] . '/dashboard/dashboard.php';
+										break;
+								}
+							} else {
+								include $GLOBALS['contents'] . '/dashboard/dashboard.php';
+							}
 							break;
+
 						default:
 							include $GLOBALS['contents'] . '/map/map.php';
 							break;
