@@ -6,7 +6,6 @@
  *
  * @author MigDinny (https://github.com/MigDinny)
  */
-
 $api = new RestApi($_GET, $_POST);
 $api->init();
 ?>

@@ -15,7 +15,7 @@ class RequestHandler {
 
 	const MAP_AREA = 'map';
 	const DASHBOARD_AREA = 'dashboard';
-	const API_AREA = 'api';
+	const API_AREA = 'rest-api';
 	const LOGIN_AREA = 'login';
 
 	// Object variables

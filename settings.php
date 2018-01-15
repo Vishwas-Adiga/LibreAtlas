@@ -13,7 +13,7 @@
 
 // >>>>>>>>>>>>>>>>>>> CUSTOMIZABLE BELOW!
 
-// Switch on/off ERROR REPORTING (1 = on, 2 = off) (can be overridden by php.ini)
+// Switch on/off ERROR REPORTING (1 = on, 0 = off) (can be overridden by php.ini)
 error_reporting(1);
 
 // App Folder >> folder in which this app is
