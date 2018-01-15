@@ -44,6 +44,7 @@ class RestApi {
 
 		$query = DB::queryFirstRow("SELECT * FROM api_keys WHERE key_string=%s", $this->APIKey);
 
+		// API KEYS CURRENTLY DISABLED FOR TESTING PURPOSES
 		//return isset($this->APIKey) && !empty($this->APIKey) && $query != null;
 		return true;
 	}
