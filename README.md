@@ -10,7 +10,7 @@ REST API Guide can be found in API.md.
 
 0. Make sure you've got an available web server for this (with PHP, MySQL and Apache). Wampserver is recommended.
 
-1. It is required to create a database for this software. A file is provided (db.sql) which does that for you.
+1. It is required to create a database for this software. A file is provided (db.sql) which does that for you. If it doesn't work for some reason, create the database on your own and import the tables using the provided file (libreatlas.sql).
 
 2. You need to set up some basic variables in settings.php like:
   * App's name (which will be used on the whole software
